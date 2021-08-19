@@ -124,7 +124,6 @@ catch(e)
 }
 
 //printing the address book
-contactList.forEach(contact =>{
-    console.log(contact.toString());
-});
+
+console.log(contactList);
 
