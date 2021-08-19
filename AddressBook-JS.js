@@ -292,3 +292,22 @@ else
         }
     }
 }
+console.log("Enter 1- to count person based on City\nEnter 2- to count person based on State");
+if(prompt()== '1')
+{
+    console.log("--------------- Printing Contacts count Based on City ---------------");
+    for(let [key,cities] of cityList)
+    {
+        console.log("City: "+key);
+        console.log("Count is: "+cities.reduce(countOFContacts,0)+"\n");
+    }
+}
+else
+{
+    console.log("--------------- Printing Contacts count Based on State ---------------");
+    for(let [key,states] of stateList)
+    {
+        console.log("State: "+key+"\n");
+        console.log("Count is: "+states.reduce(countOFContacts,0)+"\n");
+    }
+}
