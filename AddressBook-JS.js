@@ -123,7 +123,71 @@ catch(e)
     console.error(e);
 }
 
-//printing the address book
 
+let isModify= parseInt(prompt("\nDo you want to modify ?\n1.Yes\n2.No\n"));
+switch(isModify)
+{
+    case 1:
+        Modify();
+        break;
+    case 2:
+        //printing contact list
+        console.log(contactList);
+        break;
+    default:
+        console.log("Invalid option\n")
+}
+
+//After modification
 console.log(contactList);
 
+
+function Modify()
+{   let i=0;
+    console.log("\n----TO MODIFY THE CONTACT ENTER FIRST NAME----\n");
+    let name = prompt("\nEnter name :\n");
+    while( contactList[i].firstName!= name)
+    {
+        i++;
+    } 
+    let fieldOption = parseInt(prompt("\nEnter field to be modified 1.firstName 2.lastName 3.Address 4.city 5.state 6.zip 7.phoneNumber 8.email\n"));
+
+    switch(fieldOption)
+    {
+        case 1:
+            let newName = prompt("\nEnter New First name :\n");
+            contactList[i].firstName= newName;
+            break;
+        case 2:
+            let newLastName = prompt("\nEnter New Last name :\n");
+            contactList[i].lastName= newLastName;
+            break;
+        case 3:
+            let newAddress = prompt("\nEnter New Address :\n");
+            contactList[i].Address= newAddress;
+            break;
+        case 4:
+            let newCity = prompt("\nEnter New city :\n");
+            contactList[i].city= newCity;
+            break;
+        case 5:
+            let newState = prompt("\nEnter New State :\n");
+            contactList[i].state= newState;
+            break;
+        case 6:
+            let newZip = prompt("\nEnter New Zip :\n");
+            contactList[i].zip= newZip;
+            break;
+        case 7:
+            let newPhoneNumber= prompt("\nEnter New phone number :\n");
+            contactList[i].phoneNumber= newPhoneNumber;
+            break;
+        case 8:
+            let newEMail= prompt("\nEnter New Email :\n");
+            contactList[i].eMail=newEMail ;
+            break;
+        default:
+            prompt("Invalid option");
+            break;
+    }
+}
