@@ -114,8 +114,20 @@ try
     let zip=prompt("Enter Zip:  ");
     let phoneNumber=prompt("Enter Phone Number:  ");
     let eMail=prompt("Enter Email:  ");
-    ContactClassObject = new ContactClass(firstName,lastName,address,city,state,zip,phoneNumber,eMail);
-    contactList.push(ContactClassObject);
+//Filter creates a new array of elements that passes the below condition
+
+    let duplicateCheck = contactList.filter( x => x.firstName == firstName);
+//checking array length if length is 0 that means no duplicates
+        if(duplicateCheck.length==0)
+        {
+            contactClassObject=new ContactClass(firstName,lastName,address,city,state,zip,phoneNumber,eMail);
+            contactList.push(contactClassObject);
+            console.log(contactList);
+        }
+        else
+        {
+            console.log("\nDuplicates present");
+        }
     }
 }
 catch(e)
@@ -213,3 +225,4 @@ var countOFContacts =(count) =>{
 //using reduce to get the count
 let total = contactList.reduce(countOFContacts,0);
 console.log("\nTotal Count of contacts are :",total);
+console.log(contactList);
