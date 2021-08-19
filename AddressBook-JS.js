@@ -226,3 +226,13 @@ var countOFContacts =(count) =>{
 let total = contactList.reduce(countOFContacts,0);
 console.log("\nTotal Count of contacts are :",total);
 console.log(contactList);
+//function call for seachbased on city or state
+SearchBasedonCityortate();
+//function for sear based on city or state
+function SearchBasedonCityortate()
+{
+    console.log("Enter 'CITY' to Search by City\nEnter 'STATE' to Search by State");
+    let city= prompt();
+    let cityOrStateList = contactList.filter( x => (x.city== city || x.state==city));
+    console.log(cityOrStateList);
+}
