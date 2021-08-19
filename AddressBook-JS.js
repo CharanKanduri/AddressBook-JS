@@ -150,41 +150,55 @@ function Modify()
     {
         i++;
     } 
-    let fieldOption = parseInt(prompt("\nEnter field to be modified 1.firstName 2.lastName 3.Address 4.city 5.state 6.zip 7.phoneNumber 8.email\n"));
+    let fieldOption = parseInt(prompt("\nEnter field to be modified 1.firstName 2.lastName 3.Address 4.city 5.state 6.zip 7.phoneNumber 8.email 9.Delete\n"));
 
     switch(fieldOption)
     {
         case 1:
-            let newName = prompt("\nEnter New First name :\n");
+            console.log("\nEnter New First name :\n");
+            let newName = prompt();
             contactList[i].firstName= newName;
             break;
         case 2:
-            let newLastName = prompt("\nEnter New Last name :\n");
+            console.log("\nEnter New Last name :\n");
+            let newLastName = prompt();
             contactList[i].lastName= newLastName;
             break;
         case 3:
-            let newAddress = prompt("\nEnter New Address :\n");
+            console.log("\nEnter New Address :\n");
+            let newAddress = prompt();
             contactList[i].Address= newAddress;
             break;
         case 4:
-            let newCity = prompt("\nEnter New city :\n");
+            console.log("\nEnter New city :\n");
+            let newCity = prompt();
             contactList[i].city= newCity;
             break;
         case 5:
-            let newState = prompt("\nEnter New State :\n");
+            console.log("\nEnter New State :\n");
+            let newState = prompt();
             contactList[i].state= newState;
             break;
         case 6:
-            let newZip = prompt("\nEnter New Zip :\n");
+            console.log("\nEnter New Zip :\n");
+            let newZip = prompt();
             contactList[i].zip= newZip;
             break;
         case 7:
-            let newPhoneNumber= prompt("\nEnter New phone number :\n");
+            console.log("\nEnter New phone number :\n");
+            let newPhoneNumber= prompt();
             contactList[i].phoneNumber= newPhoneNumber;
             break;
         case 8:
-            let newEMail= prompt("\nEnter New Email :\n");
+            console.log("\nEnter New Email :\n");
+            let newEMail= prompt();
             contactList[i].eMail=newEMail ;
+            break;
+            //to delete from array
+        case 9:
+            delete contactList[i];
+            //After modification
+            console.log(contactList);
             break;
         default:
             prompt("Invalid option");
