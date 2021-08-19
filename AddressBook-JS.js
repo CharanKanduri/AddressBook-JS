@@ -204,4 +204,12 @@ function Modify()
             prompt("Invalid option");
             break;
     }
+
 }
+//defining a function to count using arrow 
+var countOFContacts =(count) =>{
+    return count+1; 
+}
+//using reduce to get the count
+let total = contactList.reduce(countOFContacts,0);
+console.log("\nTotal Count of contacts are :",total);
