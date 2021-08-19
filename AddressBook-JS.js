@@ -1,235 +1,292 @@
 var prompt=require("prompt-sync")();
-console.log("Welcome to AddressBook JS program\n")
-//UC-1 Creating a Address Book with 
+
+//Class to Create contacts
 class ContactClass
 {
- firstName;
- lastName;
- address;
- city;
- state;
- zip;
- phoneNumber;
- eMail;
+   firstName;
+   lastName;
+   address;
+   city;
+   state;
+   zip;
+   phoneNumber;
+   email;
 
- 
- //defining Constructor
- constructor(firstName,lastName,address,city,state,zip,phoneNumber,eMail)
- { 
-     
-    //defining the regular expressions for each Address Attributes 
-    let firstNameRegex = new RegExp('^[A-Z][a-z]{2,}$');
-    let lastNameRegex = new RegExp('^[A-Z][a-z]{2,}$');
-    let addressRegex = new RegExp('^[A-za-z]{4,}$');
-    let eMailRegex = new RegExp('^[a-zA-Z0-9]+([\.\+\-][a-zA-Z0-9]+)?@[a-zA-Z0-9]+(\.[a-zA-Z]{2,}(\.[a-zA-Z]+)?)$');
-    let zipRegex =RegExp('^[0-9]{5,}$');
-    let phoneNumberRegex= RegExp('^[0-9]{9,}$')
-
-    //performing validation using regex test method
-    if(firstNameRegex.test(firstName))
-    {   
-        this.firstName=firstName;
-        
-    }
-    else
+   //Usecase 2: Add Regex Expresions
+   constructor(firstName,lastName,address,city,state,zip,phoneNumber,email)
+   {
+    let nameRegex = RegExp('^[A-Z][a-z]{2,}$');
+    let emailRegex=RegExp('^[a-zA-Z0-9]+([\.\+\-][a-zA-Z0-9]+)?@[a-zA-Z0-9]+(\.[a-zA-Z]{2,}(\.[a-zA-Z]+)?)$');
+    let addressRegex=RegExp('^[A-za-z]{4,}');
+    let phoneRegex=RegExp('^[0-9]+\\s[0-9]{10}$');
+    let zipRegex=RegExp('^[1-9][0-9]{2}\\s?[0-9]{3}$');
+    if(nameRegex.test(firstName) && nameRegex.test(lastName))
     {
-        throw 'Enter correct first name';
+        this.firstName=firstName;
+        this.lastName=lastName;
     }
-
-    if(addressRegex.test(address))
-    {   
+    else throw 'Name is Incorrect';
+    if(emailRegex.test(email))
+    {
+        this.email=email;
+    }
+    else throw 'Email is Incorrect';
+    if(addressRegex.test(address) && addressRegex.test(city) && addressRegex.test(state))
+    {
         this.address=address;
         this.city=city;
         this.state=state;
-        
     }
-    else
+    else throw 'Address is Incorrect';
+    if(phoneRegex.test(phoneNumber)) 
     {
-        throw 'Enter correct Address';
-    }
-
-    if(lastNameRegex.test(lastName))
-    {   
-        this.lastName=lastName;
-        
-    }
-    else
-    {
-        throw 'Enter correct Last name';
-    }
-
-    
-    if(eMailRegex.test(eMail))
-    {   
-        this.eMail=eMail;
-        
-    }
-    else
-    {
-        throw 'Enter correct eMail';
-    }
-    
-    if(zipRegex.test(zip))
-    {   
-        this.zip=zip;
-        
-    }
-    else
-    {
-        throw 'Enter correct zip';
-    }
-
-    if(phoneNumberRegex.test(phoneNumber))
-    {   
         this.phoneNumber=phoneNumber;
-        
-    }
-    else
+    }   
+    else throw 'Phoen Number is Incorrect';  
+    if(zipRegex.test(zip))
     {
-        throw 'Enter correct phone number';
-    }
-
- }
-
- toString()
- {
-  return ("Name: " + this.firstName +" "+ this.lastName + " \t Address: " +this.address+" \t City: " +this.city+" \t State: "+this.state+" \t Pincode: " +this.zip+" \t Phone Number: "+this.phoneNumber+" \t Email Id: "+this.eMail);    
- }
-
-}
-//creating an array to store the address book info
-try
-{
-    var contactList= new Array();
-    var ContactClassObject;
-    var totalContacts = prompt("\nEnter total number of contacts to be added :\n")
-    while(totalContacts--)
-    {
-    
-    let firstName= prompt("Enter First Name:  ");
-    let lastName=prompt("Enter Last Name:  ");
-    let address=prompt("Enter Address:  ");
-    let city=prompt("Enter City:  ");
-    let state=prompt("Enter State:  ");
-    let zip=prompt("Enter Zip:  ");
-    let phoneNumber=prompt("Enter Phone Number:  ");
-    let eMail=prompt("Enter Email:  ");
-//Filter creates a new array of elements that passes the below condition
-
-    let duplicateCheck = contactList.filter( x => x.firstName == firstName);
-//checking array length if length is 0 that means no duplicates
-        if(duplicateCheck.length==0)
-        {
-            contactClassObject=new ContactClass(firstName,lastName,address,city,state,zip,phoneNumber,eMail);
-            contactList.push(contactClassObject);
-            console.log(contactList);
-        }
-        else
-        {
-            console.log("\nDuplicates present");
-        }
-    }
-}
-catch(e)
-{
-    console.error(e);
-}
-
-
-let isModify= parseInt(prompt("\nDo you want to modify ?\n1.Yes\n2.No\n"));
-switch(isModify)
-{
-    case 1:
-        Modify();
-        break;
-    case 2:
-        //printing contact list
-        console.log(contactList);
-        break;
-    default:
-        console.log("Invalid option\n")
-}
-
-//After modification
-console.log(contactList);
-
-
-function Modify()
-{   let i=0;
-    console.log("\n----TO MODIFY THE CONTACT ENTER FIRST NAME----\n");
-    let name = prompt("\nEnter name :\n");
-    while( contactList[i].firstName!= name)
-    {
-        i++;
+        this.zip=zip;
     } 
-    let fieldOption = parseInt(prompt("\nEnter field to be modified 1.firstName 2.lastName 3.Address 4.city 5.state 6.zip 7.phoneNumber 8.email 9.Delete\n"));
+    else throw 'Zip is Incorrect';
 
-    switch(fieldOption)
+   }
+   toString()
+   {
+    return ("Name: " + this.firstName +" "+ this.lastName + " \t Address: " +this.address+" \t City: " +this.city+" \t State: "+this.state+" \t Pincode: " +this.zip+" \t Phone Number: "+this.phoneNumber+" \t Email Id: "+this.email);
+        
+   }
+}
+
+//Usecae 3: Store Address Book Contact in Array 
+var contactList=new Array();
+CreateContact();
+UsecaseOperations();
+   //Search a person through city or state or View all city and state List
+   function UsecaseOperations()
+   {
+       console.log("Enter 1-to Insert data to AddresBook");
+       console.log("Enter 2-to Display Contact List");
+       console.log("Enter 3-to Modify Contact List");
+       console.log("Enter 4-to Count Contacts in Contact List");
+       console.log("Enter 5-to Search based on City or State");
+       console.log("Enter 6-to view based on City or State");
+       console.log("Enter 7-Sort Array");
+
+       let option = parseInt(prompt());
+       switch (option)
+       {
+           case 1:
+               CreateContact();
+               break;
+           case 2:
+               Display(contactList);
+               break;
+           case 3:
+               Modify();
+               break;
+           case 4:
+               CountContacts();
+               break;
+           case 5:
+               SearchBasedonCityortate();
+               break;
+           case 6:
+               ViewBasedonCityorState();
+               break;
+           case 7:
+               SortMethod();
+               break;
+           default:
+               Console.WriteLine("Invalid Option!");
+               break;
+       }
+   }
+
+
+//Usecase 1: Create contacts and display 
+function CreateContact()
+{
+    try
+    {
+        let number= parseInt(prompt("Enter number of contacts to be created:  "));
+        var contactClassObject;
+        while(number--)
+        {
+            let firstName= prompt("Enter First Name:  ");
+            let lastName=prompt("Enter Last Name:  ");
+            let address=prompt("Enter Address:  ");
+            let city=prompt("Enter City:  ");
+            let state=prompt("Enter State:  ");
+            let zip=prompt("Enter Zip:  ");
+            let phoneNumber=prompt("Enter Phone Number:  ");
+            let email=prompt("Enter Email:  ");
+
+            //Usecase 7: Ability to ensure there is no Duplicate Entry of the same Person in the Address Book
+
+            let duplicateCheck = contactList.filter( x => x.firstName == firstName);
+            if(duplicateCheck.length==0)
+            {
+                contactClassObject=new ContactClass(firstName,lastName,address,city,state,zip,phoneNumber,email);
+                contactList.push(contactClassObject);
+                //Display Array Objects
+                console.log(contactList);
+            }
+        }
+    }
+    catch(e)
+    {
+        console.error(e);
+    }
+}
+
+function Display(list)
+{
+    for( let value of list)
+    {
+        console.log(value.toString());
+    }
+}
+
+//Usecase 11: Ability to sort the entries in the address book alphabetically by Person’s name
+function SortMethod()
+{
+    //Usecase 12: Ability to sort the entries in the address book by City, State, or Zip 
+    console.log("Enter 1-Sort Array based on First Name");
+    console.log("Enter 2-Sort Array based on City");
+    console.log("Enter 3-Sort Array based on State");
+    console.log("Enter 4-Sort Array based on Zip");
+    let option = parseInt(prompt());
+    switch (option)
     {
         case 1:
-            console.log("\nEnter New First name :\n");
-            let newName = prompt();
-            contactList[i].firstName= newName;
+            contactList.sort((x,y) => 
+            {
+                if(x.firstName>y.firstName) return 1;
+                else return -1;
+            });
             break;
         case 2:
-            console.log("\nEnter New Last name :\n");
-            let newLastName = prompt();
-            contactList[i].lastName= newLastName;
+            contactList.sort((x,y) => 
+            {
+                if(x.city>y.city) return 1;
+                else return -1;
+            });
             break;
         case 3:
-            console.log("\nEnter New Address :\n");
-            let newAddress = prompt();
-            contactList[i].Address= newAddress;
+            contactList.sort((x,y) => 
+            {
+                if(x.state>y.state) return 1;
+                else return -1;
+            });
             break;
         case 4:
-            console.log("\nEnter New city :\n");
-            let newCity = prompt();
-            contactList[i].city= newCity;
-            break;
-        case 5:
-            console.log("\nEnter New State :\n");
-            let newState = prompt();
-            contactList[i].state= newState;
-            break;
-        case 6:
-            console.log("\nEnter New Zip :\n");
-            let newZip = prompt();
-            contactList[i].zip= newZip;
-            break;
-        case 7:
-            console.log("\nEnter New phone number :\n");
-            let newPhoneNumber= prompt();
-            contactList[i].phoneNumber= newPhoneNumber;
-            break;
-        case 8:
-            console.log("\nEnter New Email :\n");
-            let newEMail= prompt();
-            contactList[i].eMail=newEMail ;
-            break;
-            //to delete from array
-        case 9:
-            delete contactList[i];
-            //After modification
-            console.log(contactList);
-            break;
-        default:
-            prompt("Invalid option");
+            contactList.sort((x,y) => 
+            {
+                if(x.zip>y.zip) return 1;
+                else return -1;
+            });
             break;
     }
-
+    //Display Array Objects
+    console.log("--------------After Sorting --------------\n");
+    Display(contactList);
 }
-//defining a function to count using arrow 
-var countOFContacts =(count) =>{
-    return count+1; 
-}
-//using reduce to get the count
-let total = contactList.reduce(countOFContacts,0);
-console.log("\nTotal Count of contacts are :",total);
-console.log(contactList);
 
-//function call for seachbased on city or state
-SearchBasedonCityortate();
-//function for sear based on city or state
+
+//Uecase 4: Modify a contact baed on Name
+function Modify() 
+{
+    try
+    {
+        //User enters field to Modify
+        let i=0;
+        console.log("-------To Modify-------\nEnter first name of user that needs modification");
+        let name = prompt();
+
+        //Traverse till the desired index
+        while( contactList[i].firstName!= name && i< contactList.length)
+        {
+            i++;
+            if(i== contactList.length)
+            {
+                throw 'Name does not exist in ContactLit! Please Enter a valid name';
+            }
+    
+        }
+        console.log("Enter field to be modified 1.firstName 2.lastName 3.Address 4.city 5.state 6.zip 7.phoneNumber 8.email 9.Delete a contact");
+        let ch =  parseInt (prompt());
+        switch (ch)
+        {
+            case 1:
+                console.log("Enter the modified value");
+                let fn =  prompt();
+                contactList[i].firstName = fn;
+                break;
+            case 2:
+                console.log("Enter the modified value");
+                let ls = prompt();
+                contactList[i].lastName = ls;
+                break;
+            case 3:
+                console.log("Ente the modified value");
+                let add = prompt();
+                contactList[i].address = add;
+                break;
+            case 4:
+                console.log("Enter the modified value");
+                let cities =  prompt();
+                contactList[i].city = cities;
+                break;
+            case 5:
+                console.log("Enter the modified value");
+                let states = prompt();
+                contactList[i].state=states;
+                break;
+            case 6:
+                console.log("Enter the modified value");
+                let temp = prompt();
+                contactList[i].zip = temp;
+                break;
+            case 7:
+                console.log("Ente the modified value");
+                let phn =  prompt();
+                contactList[i].phoneNumber = phn;
+                break;
+            case 8:
+                console.log("Ente the modified value");
+                let emails = prompt();
+                contactList[i].email = emails;
+                break;
+
+            //Usecae 5: Delete a user based on Name
+            case 9:
+                delete contactList[i];
+                break;        
+            default:
+                console.log("Invalid Option");
+                break;
+        }
+    }
+    catch(e)
+    {
+        console.error(e);
+    }
+}
+
+
+function Findcount(count)
+{
+    return count+1;
+}
+//Usecase 6: Ability to find number of contacts in the address book
+function CountContacts()
+{
+    let totalCount=contactList.reduce(Findcount,0);
+    console.log("Total number of contacts in AddressBook: "+totalCount);
+}
+
+
+//Usecase 8: Ability to search Person in a particular City or State 
 function SearchBasedonCityortate()
 {
     console.log("Enter 'CITY' to Search by City\nEnter 'STATE' to Search by State");
@@ -237,77 +294,78 @@ function SearchBasedonCityortate()
     let cityOrStateList = contactList.filter( x => (x.city== city || x.state==city));
     console.log(cityOrStateList);
 }
-var stateList=new Map();
-var cityList=new Map();
-contactList.forEach(element => {
 
-    //-------------------- Store States in Dictionary -----------------
-     stateValue=new Array();
-     //Check whether dict has state
-     if(stateList.has(element.state))
-     {
-        stateValue=stateList.get(element.state);
-     }
-     stateValue.push(element);
-     //Set vale to dictionary
-     stateList.set(element.state,stateValue);
-
-     //-------------------- Store Cities in Dictionary -----------------
-     cityValue=new Array();
-     //Check whether dict has state
-     if(cityList.has(element.city))
-     {
-        cityValue=cityList.get(element.city);
-     }
-     cityValue.push(element);
-     //Set vale to dictionary
-     cityList.set(element.city,cityValue);
-    
-});
-
-console.log("Enter 1- to view person based on City\nEnter 2- to view person based on State");
-if(prompt()== '1')
+//Usecase 9: Ability to view Persons by City or State
+function ViewBasedonCityorState()
 {
-    console.log("--------------- Printing Contacts Based on City ---------------");
-    for(let [key,cities] of cityList)
-    {
-        console.log("City: "+key+"\n");
-    
-        for(let value of cities)
+
+    var stateList=new Map();
+    var cityList=new Map();
+    contactList.forEach(element => {
+
+        //-------------------- Store States in Dictionary -----------------
+        stateValue=new Array();
+        //Check whether dict has state
+        if(stateList.has(element.state))
         {
-         console.log(value.toString());
+            stateValue=stateList.get(element.state);
+        }
+        stateValue.push(element);
+        //Set vale to dictionary
+        stateList.set(element.state,stateValue);
+
+        //-------------------- Store Cities in Dictionary -----------------
+        cityValue=new Array();
+        //Check whether dict has state
+        if(cityList.has(element.city))
+        {
+            cityValue=cityList.get(element.city);
+        }
+        cityValue.push(element);
+        //Set vale to dictionary
+        cityList.set(element.city,cityValue);
+        
+    });
+
+    console.log("Enter 1- to view person based on City\nEnter 2- to view person based on State");
+    if(prompt()== '1')
+    {
+        console.log("--------------- Printing Contacts Based on City ---------------");
+        for(let [key,cities] of cityList)
+        {
+            console.log("City: "+key+"\n");
+            Display(cities);
+        }
+    }
+    else
+    {
+        console.log("--------------- Printing Contacts Based on State ---------------");
+        for(let [key,states] of stateList)
+        {
+            console.log("State: "+key+"\n");
+            Display(states);
+        }
+    }
+
+    // Uecase 10: Count based on City or State
+    console.log("Enter 1- to count person based on City\nEnter 2- to count person based on State");
+    if(prompt()== '1')
+    {
+        console.log("--------------- Printing Contacts count Based on City ---------------");
+        for(let [key,cities] of cityList)
+        {
+            console.log("City: "+key);
+            console.log("Count is: "+cities.reduce(Findcount,0)+"\n");
+        }
+    }
+    else
+    {
+        console.log("--------------- Printing Contacts count Based on State ---------------");
+        for(let [key,states] of stateList)
+        {
+            console.log("State: "+key+"\n");
+            console.log("Count is: "+states.reduce(Findcount,0)+"\n");
         }
     }
 }
-else
-{
-    console.log("--------------- Printing Contacts Based on State ---------------");
-    for(let [key,states] of stateList)
-    {
-        console.log("State: "+key+"\n")
-    
-        for(let value of states)
-        {
-         console.log(value.toString());
-        }
-    }
-}
-console.log("Enter 1- to count person based on City\nEnter 2- to count person based on State");
-if(prompt()== '1')
-{
-    console.log("--------------- Printing Contacts count Based on City ---------------");
-    for(let [key,cities] of cityList)
-    {
-        console.log("City: "+key);
-        console.log("Count is: "+cities.reduce(countOFContacts,0)+"\n");
-    }
-}
-else
-{
-    console.log("--------------- Printing Contacts count Based on State ---------------");
-    for(let [key,states] of stateList)
-    {
-        console.log("State: "+key+"\n");
-        console.log("Count is: "+states.reduce(countOFContacts,0)+"\n");
-    }
-}
+
